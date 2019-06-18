@@ -6,17 +6,14 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Insets;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -29,6 +26,9 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
+        chatPanel.setPreferredSize(new Dimension(1000, 1000));
+        addText("Se ha iniciado el chat con Cade Agent\n\n", Color.BLACK);
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
 
@@ -44,8 +44,8 @@ public class Chat extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         textField = new javax.swing.JTextField();
         button = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        chatPanel = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,9 +65,8 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
-        textArea.setColumns(20);
-        textArea.setRows(5);
-        jScrollPane1.setViewportView(textArea);
+        chatPanel.setEditable(false);
+        jScrollPane2.setViewportView(chatPanel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,7 +75,7 @@ public class Chat extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -87,7 +86,7 @@ public class Chat extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
@@ -110,36 +109,7 @@ public class Chat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-        
-        JPanel topPanel = new JPanel();        
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        EmptyBorder eb = new EmptyBorder(new Insets(10, 10, 10, 10));
-
-        JTextPane tPane = new JTextPane();                
-        tPane.setBorder(eb);
-        //tPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        tPane.setMargin(new Insets(5, 5, 5, 5));
-
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, Color.RED);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tPane.getDocument().getLength();
-        tPane.setCaretPosition(len);
-        tPane.setCharacterAttributes(aset, false);
-        tPane.replaceSelection("Usuario dice:\n"+textField.getText()+"\n");
-        
-        textArea.add(tPane);
-        
-        getContentPane().add(topPanel);
-
-        pack();
-       
+        addText("Usuario dice:\n"+textField.getText()+"\n\n\n", Color.BLUE);
     }//GEN-LAST:event_buttonActionPerformed
 
     private void textFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldKeyTyped
@@ -182,12 +152,33 @@ public class Chat extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void addText(String text, Color color){
+        StyledDocument doc = chatPanel.getStyledDocument();
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+        int len = doc.getLength();
+        chatPanel.setCaretPosition(len);
+        chatPanel.setCharacterAttributes(aset, false);
+        
+        try {
+            doc.insertString(len, text, aset);
+        } 
+        catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        pack();
+        this.validate();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
+    private javax.swing.JTextPane chatPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea textArea;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
 }
