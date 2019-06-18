@@ -5,10 +5,15 @@
  */
 package View;
 
-import Controller.TokenProcessing;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -21,6 +26,9 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
+        addText("Se ha iniciado el chat con Cade Agent\n\n---------------------------------------------------------------------------------------------------------------------------\n\n", Color.BLACK);
+//        chatPanel.setPreferredSize(new Dimension(1000, 1000));
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
 
@@ -34,38 +42,21 @@ public class Chat extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        scroll = new javax.swing.JScrollPane();
-        scrollPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
         button = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        chatPanel = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout scrollPanelLayout = new javax.swing.GroupLayout(scrollPanel);
-        scrollPanel.setLayout(scrollPanelLayout);
-        scrollPanelLayout.setHorizontalGroup(
-            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(scrollPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(457, Short.MAX_VALUE))
-        );
-        scrollPanelLayout.setVerticalGroup(
-            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(scrollPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(339, Short.MAX_VALUE))
-        );
-
-        scroll.setViewportView(scrollPanel);
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         textField.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldKeyTyped(evt);
+            }
+        });
 
         button.setText("Send");
         button.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +65,9 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
+        chatPanel.setEditable(false);
+        jScrollPane2.setViewportView(chatPanel);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,7 +75,7 @@ public class Chat extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -92,8 +86,8 @@ public class Chat extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -104,9 +98,7 @@ public class Chat extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,17 +109,17 @@ public class Chat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-        JLabel texto = new JLabel(textField.getText());
-        texto.setForeground(Color.white);
-        texto.setBackground(Color.black);
-        scrollPanel.add(texto);
-        scrollPanel.getLayout().removeLayoutComponent(jLabel1);
-        scrollPanel.revalidate();
-        scrollPanel.repaint();
-        JPanel view = ((JPanel)scroll.getViewport().getView());
-        view.add(texto);
-        view.validate();
+        if (!textField.getText().isEmpty()){
+            addText("Usuario dice:\n"+textField.getText()+"\n\n", Color.BLUE);
+            textField.setText(null);
+        }
     }//GEN-LAST:event_buttonActionPerformed
+
+    private void textFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldKeyTyped
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            button.doClick();
+        }
+    }//GEN-LAST:event_textFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -163,13 +155,33 @@ public class Chat extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void addText(String text, Color color){
+        StyledDocument doc = chatPanel.getStyledDocument();
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+        int len = doc.getLength();
+        chatPanel.setCaretPosition(len);
+        chatPanel.setCharacterAttributes(aset, false);
+        
+        try {
+            doc.insertString(len, text, aset);
+        } 
+        catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        pack();
+        this.validate();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextPane chatPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane scroll;
-    private javax.swing.JPanel scrollPanel;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
 }
