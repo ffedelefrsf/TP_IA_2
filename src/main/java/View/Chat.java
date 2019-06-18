@@ -26,8 +26,8 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
-        chatPanel.setPreferredSize(new Dimension(1000, 1000));
-        addText("Se ha iniciado el chat con Cade Agent\n\n", Color.BLACK);
+        addText("Se ha iniciado el chat con Cade Agent\n\n---------------------------------------------------------------------------------------------------------------------------\n\n", Color.BLACK);
+//        chatPanel.setPreferredSize(new Dimension(1000, 1000));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
@@ -109,7 +109,10 @@ public class Chat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-        addText("Usuario dice:\n"+textField.getText()+"\n\n\n", Color.BLUE);
+        if (!textField.getText().isEmpty()){
+            addText("Usuario dice:\n"+textField.getText()+"\n\n", Color.BLUE);
+            textField.setText(null);
+        }
     }//GEN-LAST:event_buttonActionPerformed
 
     private void textFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldKeyTyped
