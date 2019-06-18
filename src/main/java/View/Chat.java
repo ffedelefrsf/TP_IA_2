@@ -6,8 +6,17 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 /**
  *
@@ -33,38 +42,21 @@ public class Chat extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        scroll = new javax.swing.JScrollPane();
-        scrollPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
         button = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout scrollPanelLayout = new javax.swing.GroupLayout(scrollPanel);
-        scrollPanel.setLayout(scrollPanelLayout);
-        scrollPanelLayout.setHorizontalGroup(
-            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(scrollPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(457, Short.MAX_VALUE))
-        );
-        scrollPanelLayout.setVerticalGroup(
-            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(scrollPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(339, Short.MAX_VALUE))
-        );
-
-        scroll.setViewportView(scrollPanel);
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         textField.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldKeyTyped(evt);
+            }
+        });
 
         button.setText("Send");
         button.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +65,10 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        jScrollPane1.setViewportView(textArea);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -80,7 +76,7 @@ public class Chat extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -91,8 +87,8 @@ public class Chat extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -103,9 +99,7 @@ public class Chat extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,17 +110,43 @@ public class Chat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-        JLabel texto = new JLabel(textField.getText());
-        texto.setForeground(Color.white);
-        texto.setBackground(Color.black);
-        scrollPanel.add(texto);
-        scrollPanel.getLayout().removeLayoutComponent(jLabel1);
-        scrollPanel.revalidate();
-        scrollPanel.repaint();
-        JPanel view = ((JPanel)scroll.getViewport().getView());
-        view.add(texto);
-        view.validate();
+        
+        JPanel topPanel = new JPanel();        
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        EmptyBorder eb = new EmptyBorder(new Insets(10, 10, 10, 10));
+
+        JTextPane tPane = new JTextPane();                
+        tPane.setBorder(eb);
+        //tPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        tPane.setMargin(new Insets(5, 5, 5, 5));
+
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, Color.RED);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tPane.getDocument().getLength();
+        tPane.setCaretPosition(len);
+        tPane.setCharacterAttributes(aset, false);
+        tPane.replaceSelection("Usuario dice:\n"+textField.getText()+"\n");
+        
+        textArea.add(tPane);
+        
+        getContentPane().add(topPanel);
+
+        pack();
+       
     }//GEN-LAST:event_buttonActionPerformed
+
+    private void textFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldKeyTyped
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            button.doClick();
+        }
+    }//GEN-LAST:event_textFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -165,10 +185,9 @@ public class Chat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane scroll;
-    private javax.swing.JPanel scrollPanel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea textArea;
     private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
 }
