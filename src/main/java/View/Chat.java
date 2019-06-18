@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.TokenProcessing;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -151,7 +152,8 @@ public class Chat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Chat().setVisible(true);
+                new TokenProcessing();
+//                new Chat().setVisible(true);
             }
         });
     }
