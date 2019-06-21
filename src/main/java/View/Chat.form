@@ -98,6 +98,7 @@
             <Component class="javax.swing.JTextPane" name="chatPanel">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

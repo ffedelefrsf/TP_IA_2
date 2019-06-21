@@ -6,6 +6,7 @@
 package View;
 
 import Controller.TokenProcessing;
+import Memorias.Trabajo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -67,6 +68,7 @@ public class Chat extends javax.swing.JFrame {
         });
 
         chatPanel.setEditable(false);
+        chatPanel.setFocusable(false);
         jScrollPane2.setViewportView(chatPanel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -112,7 +114,31 @@ public class Chat extends javax.swing.JFrame {
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!textField.getText().isEmpty()){
             addText("Usuario dice:\n"+textField.getText()+"\n\n", Color.BLUE);
+            new TokenProcessing(textField.getText());
             textField.setText(null);
+            boolean flag = false;
+//            for (String componente : Trabajo.getInstance().getComponentes()){
+//                    if (componente.equals("Empleado") && componente.equals("Cliente")){
+//                        flag = true;
+//                    }
+//            }
+            if (Trabajo.getInstance().getComponentes().contains("noempleado") && Trabajo.getInstance().getComponentes().contains("nocliente")){
+                flag = true;
+            }
+            
+            if (flag){
+                addText("CadeAgent dice:\nEres un cliente o un empleado?\n\n", Color.RED);
+            }else{
+                addText("CadeAgent dice:\nQué es lo que desea?\n\n", Color.RED);
+            }
+            System.out.println("-----------------------------------------------------------");
+            System.out.println("MEMORIA DE TRABAJO");
+            System.out.println("-----------------------------------------------------------");
+            for (String componente : Trabajo.getInstance().getComponentes()){
+                System.out.println(componente);
+            }
+            System.out.println("-----------------------------------------------------------");
+//            addText("CadeAgent dice:\nno te entiendo\n\n", Color.RED);
         }
     }//GEN-LAST:event_buttonActionPerformed
 
@@ -152,8 +178,14 @@ public class Chat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TokenProcessing();
-//                new Chat().setVisible(true);
+                new Chat().setVisible(true);
+//                System.out.println("-----------------------------------------------------------");
+//                System.out.println("MEMORIA DE TRABAJO");
+//                System.out.println("-----------------------------------------------------------");
+//                for (String componente : Trabajo.getInstance().getComponentes()){
+//                    System.out.println(componente);
+//                }
+//                System.out.println("-----------------------------------------------------------");
             }
         });
     }

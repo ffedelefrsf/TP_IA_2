@@ -15,6 +15,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,7 @@ import java.util.Properties;
 public class TokenProcessing {
     private StanfordCoreNLP pipeline;
     private StringBuilder string;
+    private List<CoreLabel> listaTokens;
     
     public TokenProcessing(){
         Properties props = new Properties();
@@ -35,8 +37,23 @@ public class TokenProcessing {
         props.setProperty("lemma.model", "edu/stanford/nlp/models/lemma/spanish/spanish-distsim.tagger");
         this.pipeline= new StanfordCoreNLP(props);
         this.string= new StringBuilder();
-        System.out.println(this.getAnnotators("Hola José, was usando una computadora 10"));
+        listaTokens = new ArrayList();
+        System.out.println(this.getAnnotators("Hola José, was corriendo una computadora 10 i5"));
     }
+    
+    public TokenProcessing(String input){
+        Properties props = new Properties();
+        
+        props.setProperty("annotators", "tokenize,ssplit,pos,lemma");
+        props.setProperty("pos.model", "edu/stanford/nlp/models/pos-tagger/spanish/spanish-distsim.tagger");
+        props.setProperty("tokenize.language", "es");
+        props.setProperty("lemma.model", "edu/stanford/nlp/models/lemma/spanish/spanish-distsim.tagger");
+        this.pipeline= new StanfordCoreNLP(props);
+        this.string= new StringBuilder();
+        listaTokens = new ArrayList();
+        System.out.println(this.getAnnotators(input));
+    }
+    
     public String getAnnotators(String entry){
         Annotation document = new Annotation(entry);
         
@@ -47,7 +64,11 @@ public class TokenProcessing {
         for(CoreMap sentence: sentences) {
           // traversing the words in the current sentence
           // a CoreLabel is a CoreMap with additional token-specific methods
-          for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
+          
+          listaTokens.addAll(sentence.get(TokensAnnotation.class));
+          Analizar analyze = new Analizar(listaTokens);
+          
+          for (CoreLabel token: listaTokens) {
             
             // this is the text of the token
             String word = token.get(TextAnnotation.class);
@@ -60,6 +81,8 @@ public class TokenProcessing {
             this.string.append(token.lemma() + " [" + pos + "]\n");
           }
         }
-        return this.string.toString();
+        
+//        return this.string.toString();
+        return "";
     }
 }
