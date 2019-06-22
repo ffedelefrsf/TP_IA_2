@@ -23,6 +23,13 @@
             <version>3.9.2</version>
             <classifier>models-spanish</classifier>
         </dependency>
+        <dependency>
+            <groupId>edu.upc.freeling</groupId>
+            <artifactId>freeling</artifactId>
+            <version>4.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/freeling.jar</systemPath>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
