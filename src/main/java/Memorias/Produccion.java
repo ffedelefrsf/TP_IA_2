@@ -21,11 +21,11 @@ public class Produccion {
     private Produccion() {
         // Initialize REGLA ( ANTECENDETES , CONSECUENTES )
         reglas = new ArrayList();
-        reglas.add(new Regla(new ArrayList<String>(Arrays.asList("computadora", "i5")), new ArrayList<String>(Arrays.asList("notebook")), Tipo.AGREGAR));
-        reglas.add(new Regla(new ArrayList<String>(Arrays.asList("empleado", "nocliente")), new ArrayList<String>(Arrays.asList("noempleado")), Tipo.BORRAR));
-        reglas.add(new Regla(new ArrayList<String>(Arrays.asList("empleado", "nocliente")), new ArrayList<String>(Arrays.asList("empleado")), Tipo.AGREGAR));
-        reglas.add(new Regla(new ArrayList<String>(Arrays.asList("cliente", "noempleado")), new ArrayList<String>(Arrays.asList("nocliente")), Tipo.BORRAR));
-        reglas.add(new Regla(new ArrayList<String>(Arrays.asList("cliente", "noempleado")), new ArrayList<String>(Arrays.asList("cliente")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("computadora", "i5", "pc")), new ArrayList<>(Arrays.asList("notebook")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("noempleado")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("empleado")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("nocliente")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("cliente")), Tipo.AGREGAR));
     }
     
     public static Produccion getInstance() {
