@@ -31,16 +31,16 @@ public class Analizar {
         reglasActivas = new ArrayList();
     }
     
-    public Analizar(List<CoreLabel> listaTokens){
-        inputStrings = new ArrayList();
+    public Analizar(List<String> listaStrings){
+        inputStrings = listaStrings;
         reglasActivas = new ArrayList();
-        for (CoreLabel token: listaTokens) {
-            inputStrings.add(token.get(CoreAnnotations.TextAnnotation.class));
-        }
-        fillReglasActivas();
-        
-        solucionarConjuntoConflicto();
-        
+        List<Regla> clon = new ArrayList();
+        do{
+            fillReglasActivas();
+            clon.addAll(reglasActivas);
+            solucionarConjuntoConflicto();
+            fillReglasActivas();
+        }while(!clon.equals(reglasActivas));
         inputStrings.clear();
         reglasActivas.clear();
     }
@@ -194,6 +194,7 @@ public class Analizar {
                     trabajo.removeComponente(componente);
                 }
             }
+            reglasActivas.remove(reglaEspecifica);
         }
         
     }

@@ -35,6 +35,7 @@ public class TokenProcessing {
                 this.inputStrings.add(token);
             } 
         }
+        Analizar analyze = new Analizar(inputStrings);
     }
     public String characterReplacement(String input){
         String replaced = input.replaceAll("ñ", "ni")
@@ -47,9 +48,5 @@ public class TokenProcessing {
         
         return replaced;
     }
-    public String getAnnotators(String entry){
-          
-          Analizar analyze = new Analizar(listaTokens);
-          return "";
-    }
+
 }
