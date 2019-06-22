@@ -5,84 +5,51 @@
  */
 package Controller;
 
-import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author ale_b
  */
 public class TokenProcessing {
-    private StanfordCoreNLP pipeline;
-    private StringBuilder string;
+    private String inputStr;
     private List<CoreLabel> listaTokens;
-    
-    public TokenProcessing(){
-        Properties props = new Properties();
-        
-        props.setProperty("annotators", "tokenize,ssplit,pos,lemma");
-        props.setProperty("pos.model", "edu/stanford/nlp/models/pos-tagger/spanish/spanish-distsim.tagger");
-        props.setProperty("tokenize.language", "es");
-        props.setProperty("lemma.model", "edu/stanford/nlp/models/lemma/spanish/spanish-distsim.tagger");
-        this.pipeline= new StanfordCoreNLP(props);
-        this.string= new StringBuilder();
-        listaTokens = new ArrayList();
-        System.out.println(this.getAnnotators("Hola José, was corriendo una computadora 10 i5"));
-    }
+    private List<String> inputStrings;
     
     public TokenProcessing(String input){
-        Properties props = new Properties();
-        
-        props.setProperty("annotators", "tokenize,ssplit,pos,lemma");
-        props.setProperty("pos.model", "edu/stanford/nlp/models/pos-tagger/spanish/spanish-distsim.tagger");
-        props.setProperty("tokenize.language", "es");
-        props.setProperty("lemma.model", "edu/stanford/nlp/models/lemma/spanish/spanish-distsim.tagger");
-        this.pipeline= new StanfordCoreNLP(props);
-        this.string= new StringBuilder();
+        this.inputStr=input;
         listaTokens = new ArrayList();
-        System.out.println(this.getAnnotators(input));
+        inputStrings = new ArrayList();
+        this.tokenize();
     }
     
-    public String getAnnotators(String entry){
-        Annotation document = new Annotation(entry);
-        
-        pipeline.annotate(document);
-        
-        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-
-        for(CoreMap sentence: sentences) {
-          // traversing the words in the current sentence
-          // a CoreLabel is a CoreMap with additional token-specific methods
-          
-          listaTokens.addAll(sentence.get(TokensAnnotation.class));
-          Analizar analyze = new Analizar(listaTokens);
-          
-          for (CoreLabel token: listaTokens) {
-            
-            // this is the text of the token
-            String word = token.get(TextAnnotation.class);
-            String lema = token.get(LemmaAnnotation.class);
-            // this is the POS tag of the token
-            String pos = token.get(PartOfSpeechAnnotation.class);
-            // this is the NER label of the token
-            String ne = token.get(NamedEntityTagAnnotation.class);
-            
-            this.string.append(token.lemma() + " [" + pos + "]\n");
-          }
+    public void tokenize(){
+        StringTokenizer st = new StringTokenizer(inputStr);
+        while (st.hasMoreElements()){
+            String token = characterReplacement(st.nextToken().toLowerCase());
+            if(!token.isEmpty()){
+                this.inputStrings.add(token);
+            } 
         }
+    }
+    public String characterReplacement(String input){
+        String replaced = input.replaceAll("ñ", "ni")
+                .replaceAll("á", "a")
+                .replaceAll("é", "e")
+                .replaceAll("í", "i")
+                .replaceAll("ó", "o")
+                .replaceAll("ú", "u")
+                .replaceAll("[^a-z0-9]", "");
         
-//        return this.string.toString();
-        return "";
+        return replaced;
+    }
+    public String getAnnotators(String entry){
+          
+          Analizar analyze = new Analizar(listaTokens);
+          return "";
     }
 }

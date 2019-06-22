@@ -5,11 +5,14 @@
  */
 package View;
 
-import Controller.TokenProcessing;
+import Controller.*;
 import Memorias.Trabajo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
