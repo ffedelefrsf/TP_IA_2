@@ -18,7 +18,7 @@ public class Trabajo {
     private List<String> componentes;
     
     private Trabajo() {
-        componentes = new ArrayList(Arrays.asList("noempleado", "nocliente", "noproducto", "nouso"));
+        componentes = new ArrayList(Arrays.asList("noempleado", "nocliente", "noproducto", "nouso", "no1caracteristica", "no2caracteristicas", "no3caracteristicas", "no4caracteristicas"));
     }
     
     public static Trabajo getInstance() {
@@ -52,6 +52,10 @@ public class Trabajo {
     
     public void removeComponente (String componente){
         componentes.remove(componente);
+    }
+    
+    public void reset(String usuario){
+        componentes = new ArrayList(Arrays.asList(usuario, "usuario", "noproducto", "nouso", "no1caracteristica", "no2caracteristicas", "no3caracteristicas", "no4caracteristicas"));
     }
     
 }
