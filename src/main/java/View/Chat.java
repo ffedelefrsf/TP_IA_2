@@ -211,7 +211,6 @@ public class Chat extends javax.swing.JFrame {
             }else if (componentes.contains("producto") && !componentes.contains("nouso")){
                 String productos = "";
                 for (String word: componentes){
-                    System.out.println(word);
                     if (word.equals("HP ELITE A9") || word.equals("DELL INSPIRON 3585") || word.equals("LENOVO V330") || word.equals("HP OMEN 35000") || 
                             word.equals("ASUS VIVOBOOK E406") || word.equals("ASUS FX504") || word.equals("DELL ALIENWARE 17") || word.equals("ACER ASPIRE 3") || 
                             word.equals("ACER PREDATOR HELIOS 300") || word.equals("LG 43LK5700") || word.equals("LG 32LJ600B") || word.equals("SAMSUNG UN49K5500") || 
