@@ -1,11 +1,11 @@
 trabajar;trabajar*trabajo*trabajando*oficina*laburo*laburar*laburando*estudiar*estudiando*estudios*estudio*facultad*escuela*universidad
-camara;fotos*camara*imagenes*imagen*retrato*retratos*foto
-smartphone;celu*celular*smartphone*telefono*celulares*telefonos*tel*cel*smartphones
-jugar;jueguito*jueguitos*familia*ninio*ninios*chicos*hijos*hijo*gamer*gaming*jugar*juego*juega*juegan*jueguen*jugando
+camara;fotos*camaras*imagenes*imagen*retrato*retratos*foto*instagram*insta
+smartphone;celu*celular*smartphone*telefono*celulares*telefonos*tel*cel*smartphones*cels*tels
+jugar;jueguito*jueguitos*familia*ninio*ninios*chicos*hijos*hijo*gamer*gaming*jugar*juego*juega*juegan*jueguen*jugando*nene*nena*nenes*nenas*hija*hijas*ninia*ninias
 pelicula;pelis*peli*pelicula*peliculas*netflix*futbol*partido*partidos*seleccion
 economico;barato*economico*baratos*economicos*whatsapp*mensajes*mensaje*llamar*llamadas*llamada*llamo*llaman*domestico*barata*baratas*economicas*economica
-smart tv;tv*tele*televisor*led*lcd
+smart tv;tv*tele*televisor*led*lcd*tvs*lcds*leds*teles*televisores
 tablet;tablet*tableta*ipad
-notebook;computadora*compu*laptop*netbook*ordenador*pc
+notebook;computadora*compu*laptop*netbook*ordenador*pc*note*net*computadoras*compus*laptops*netbooks*ordenadores*pcs*notes*nets
 caracteristicas;caracteristica*recursos*recurso*detalle*detalles*especificaciones*especificacion
-disponibilidad;disponible*existe*disponibles
+disponibilidad;disponible*existe*disponibles*stock*inventario*stocks*inventarios*stok*stoc

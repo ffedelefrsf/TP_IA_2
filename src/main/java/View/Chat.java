@@ -67,7 +67,7 @@ public class Chat extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(230, 230, 230));
 
         textField.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         textField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -76,7 +76,8 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
-        button.setText("Send");
+        button.setFont(new java.awt.Font("Nirmala UI", 1, 13)); // NOI18N
+        button.setText("SEND");
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionPerformed(evt);
@@ -92,25 +93,25 @@ public class Chat extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(button)))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,11 +226,7 @@ public class Chat extends javax.swing.JFrame {
                     }
                 }
                 String salida;
-//                if (disponibilidad){
-                    salida = "CadeBot dice:\nLos productos disponibles son:\n"+productos+"\n";
-//                }else{
-//                    salida = "Lo siento, no conozco ese producto.";
-//                }
+                salida = "CadeBot dice:\nLos productos disponibles son:\n"+productos+"\n";
                 addText(salida, COLOR_CADE);
                 if (componentes.contains("cliente")){
                     Trabajo.getInstance().reset("cliente");
@@ -375,13 +372,6 @@ public class Chat extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Chat().setVisible(true);
-//                System.out.println("-----------------------------------------------------------");
-//                System.out.println("MEMORIA DE TRABAJO");
-//                System.out.println("-----------------------------------------------------------");
-//                for (String componente : Trabajo.getInstance().getComponentes()){
-//                    System.out.println(componente);
-//                }
-//                System.out.println("-----------------------------------------------------------");
             }
         });
     }
