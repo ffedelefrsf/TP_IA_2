@@ -1,9 +1,9 @@
-﻿notebook;computadora*compu*laptop*netbook*ordenador*pc
 trabajar;trabajar*trabajo*trabajando*oficina*laburo*laburar*laburando*estudiar*estudiando*estudios*estudio*facultad*escuela*universidad
 camara;fotos*camara*imagenes*imagen*retrato*retratos*foto
-smartphone;celu*celular*smartphone*teléfono*telefono*celulares*teléfonos*telefonos*tel*cel*smartphones
-jugar;jueguito*jueguitos*familia*niño*niños*chicos*hijos*hijo*gamer*gaming*jugar*juego*juega*juegan*jueguen*jugando
-pelicula;pelis*peli*pelicula*peliculas*netflix*futbol*partido*partidos*seleccion*
-economico;barato*economico*baratos*economicos*whatsapp*mensajes*mensaje*llamar*llamadas*llamada*llamo*llaman*domestico*barata*baratas*economicas*economicas*económico*económicos*económica*económicas
+smartphone;celu*celular*smartphone*telefono*celulares*telefonos*tel*cel*smartphones
+jugar;jueguito*jueguitos*familia*ninio*ninios*chicos*hijos*hijo*gamer*gaming*jugar*juego*juega*juegan*jueguen*jugando
+pelicula;pelis*peli*pelicula*peliculas*netflix*futbol*partido*partidos*seleccion
+economico;barato*economico*baratos*economicos*whatsapp*mensajes*mensaje*llamar*llamadas*llamada*llamo*llaman*domestico*barata*baratas*economicas*economica
 smart tv;tv*tele*televisor*led*lcd
 tablet;tablet*tableta*ipad
+notebook;computadora*compu*laptop*netbook*ordenador*pc

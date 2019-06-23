@@ -31,8 +31,8 @@ public class Chat extends javax.swing.JFrame {
     /**
      * Creates new form Chat
      */
-    private boolean flagUser = false, flagUso = false, flagProducto = false;
-    
+    private boolean flagUser = false, flagUso = false, flagProducto = false, flagEmpleado = false;
+    private final ProductController pc= new ProductController();
     private final Color COLOR_CADE = Color.RED;
     private final Color COLOR_USER = Color.BLUE;
     
@@ -181,7 +181,7 @@ public class Chat extends javax.swing.JFrame {
                                 addText("CadeAgent dice:\n¿Para qué la va a utilizar?\n\n", COLOR_CADE);
                 }
                 flagUso = true;
-            }else if (!componentes.contains("noproducto") && !componentes.contains("nouso")){
+            }else if (componentes.contains("producto") && !componentes.contains("nouso")){
 //                boolean disponibilidad = false;
                 String productos = "";
                 for (String word: componentes){
@@ -215,12 +215,81 @@ public class Chat extends javax.swing.JFrame {
                 addText("¿Qué otro producto le interesa?\n\n", COLOR_CADE);
             }
             else{
-                if (flagProducto)
-                    addText("CadeAgent dice:\nLo siento, no conozco ese producto. Puede elegir entre notebook, tablet, smart tv o smartphone.\n"
-                            + "Qué producto le interesa?\n\n", COLOR_CADE);
-                else
-                    addText("CadeAgent dice:\nQué producto le interesa?\n\n", COLOR_CADE);
-                flagProducto = true;
+                if (componentes.contains("empleado") && componentes.contains("noproducto") && componentes.contains("nocaracteristica")){
+                    if (flagEmpleado){
+                        addText("CadeAgent dice:\nLo siento, no cuento con esa opción. Puede elegir entre una característica o disponibilidad de productos.\n"
+                            + "¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                    }else{
+                        addText("CadeAgent dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                        flagEmpleado = true;
+                    }
+                }else{
+                    if (componentes.contains("empleado") && componentes.contains("caracteristica") && componentes.contains("consulta")){
+                        String productos = "";
+                        for (String word: componentes){
+                            if (word.equals("HP ELITE A9") || word.equals("DELL INSPIRON 3585") || word.equals("LENOVO V330") || word.equals("HP OMEN 35000") || 
+                                    word.equals("ASUS VIVOBOOK E406") || word.equals("ASUS FX504") || word.equals("DELL ALIENWARE 17") || word.equals("ACER ASPIRE 3") || 
+                                    word.equals("ACER PREDATOR HELIOS 300") || word.equals("LG 43LK5700") || word.equals("LG 32LJ600B") || word.equals("SAMSUNG UN49K5500") || 
+                                    word.equals("SAMSUNG J4300") || word.equals("NOBLEX EA43X5100") || word.equals("NOBLEX DI49X6500") || word.equals("TCL L32S6500") || 
+                                    word.equals("TCL L49S62") || word.equals("PHILIPS 55OLED873") || word.equals("PHILIPS 32PHG5102") || word.equals("XIAOMI MI 8 PRO") || 
+                                    word.equals("XIAOMI REDMI NOTE 7") || word.equals("SAMSUNG GALAXY NOTE 9") || word.equals("SAMSUNG GALAXY A50") || word.equals("ONEPLUS 6T") || 
+                                    word.equals("ONEPLUS 7 PRO") || word.equals("HUAWEI MATE 20 PRO") || word.equals("HUAWEI P20 LITE") || word.equals("MOTO G7 PLUS") || 
+                                    word.equals("MOTO E5 PLUS") || word.equals("SAMSUNG SM-T560") || word.equals("SAMSUNG SM-T580") || word.equals("GADNIC TAB038BK") || 
+                                    word.equals("GADNIC FENIX PHONE") || word.equals("LENOVO TB3-710F") || word.equals("LENOVO YOGA TAB 3") || word.equals("IPAD PRO") || 
+                                    word.equals("IPAD 2") || word.equals("HUAWEI BG2-W09") || word.equals("HUAWEI T3 10")){
+        //                        disponibilidad = true;
+                                if(pc.getNotebook(word)!=null){
+                                    
+                                    productos = productos.concat(pc.getNotebook(word).toString());
+                                    
+                                }
+                                else{
+                                    if(pc.getSmartphone(word)!=null){
+                                        productos = productos.concat(pc.getSmartphone(word).toString());
+                                    }
+                                    else{
+                                        if(pc.getTv(word)!=null){
+                                            productos = productos.concat(pc.getTv(word).toString());
+                                        }
+                                        else{
+                                            productos = productos.concat(pc.getTablet(word).toString());
+                                        }
+                                    }
+                                }
+//                                productos = productos.concat("\t■ "+word+"\n");
+                            }
+                            
+                        }
+                        String salida;
+        //                if (disponibilidad){
+                            salida = "CadeAgent dice:\nLas características son:\n"+productos+"\n";
+        //                }else{
+        //                    salida = "Lo siento, no conozco ese producto.";
+        //                }
+                        addText(salida, COLOR_CADE);
+                        if (componentes.contains("cliente")){
+                            Trabajo.getInstance().reset("cliente");
+                        }else{
+                            Trabajo.getInstance().reset("empleado");
+                        }
+                        flagUso = false;
+                        flagProducto = false;
+                        if (componentes.contains("empleado"))
+                            addText("CadeAgent dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                        else
+                            addText("¿Qué otro producto le interesa?\n\n", COLOR_CADE);
+                    }else{
+                        if (!componentes.contains("producto")){
+                            if (flagProducto)
+                                addText("CadeAgent dice:\nLo siento, no conozco ese producto. Puede elegir entre notebook, tablet, smart tv o smartphone.\n"
+                                        + "Qué producto le interesa?\n\n", COLOR_CADE);
+                            else{
+                                addText("CadeAgent dice:\n¿Qué producto le interesa?\n\n", COLOR_CADE);
+                            }
+                            flagProducto = true;
+                        }
+                    }
+                }
             }
 //            else{
 //                if(!componentes.contains("característica")){

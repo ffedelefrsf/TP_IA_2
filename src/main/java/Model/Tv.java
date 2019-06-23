@@ -54,7 +54,16 @@ public class Tv {
     public void setUso(String uso) {
         this.uso = uso;
     }
-    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\tModelo: " + this.modelo +"\n");
+        sb.append("\t\t■ Tamaño: " + this.tamanio +"\n");
+        sb.append("\t\t■ Resolución: " + this.resolucion +"\n");
+        sb.append("\t\t■ Uso recomendado: " + this.uso +"\n");
+        
+        return sb.toString();
+    }
     
     
 }

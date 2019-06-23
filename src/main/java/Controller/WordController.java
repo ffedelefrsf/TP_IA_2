@@ -40,7 +40,8 @@ public class WordController {
             StringTokenizer st = new StringTokenizer(linea);
             String key = st.nextToken(";");
             while (st.hasMoreElements()){
-                set.add(st.nextToken("*").replaceAll(";",""));
+                
+                set.add(characterReplacement(st.nextToken("*").replaceAll(";","")));
             }
             keywords.put(key, set);
         }
@@ -60,6 +61,18 @@ public class WordController {
         }
         
         return "";
+    }
+    
+    public String characterReplacement(String input){
+        String replaced = input.replaceAll("ñ", "ni")
+                .replaceAll("á", "a")
+                .replaceAll("é", "e")
+                .replaceAll("í", "i")
+                .replaceAll("ó", "o")
+                .replaceAll("ú", "u")
+                .replaceAll("[^a-z0-9]", "");
+        
+        return replaced;
     }
 
 }

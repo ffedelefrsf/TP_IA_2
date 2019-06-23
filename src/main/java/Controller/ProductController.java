@@ -23,6 +23,41 @@ public class ProductController {
     ArrayList<Smartphone> smartphones;
     ArrayList<Tablet> tablets;
 
+    public Notebook getNotebook(String modelo){
+        for(Notebook n: notebooks){
+            if(n.getModelo().equals(modelo)){
+                return n;
+            }
+        }
+        return null;
+    }
+    public Tablet getTablet(String modelo){
+        for(Tablet n: tablets){
+            if(n.getModelo().equals(modelo)){
+                return n;
+            }
+        }
+        return null;
+    }
+    public Tv getTv(String modelo){
+        for(Tv n: tvs){
+            if(n.getModelo().equals(modelo)){
+                return n;
+            }
+        }
+        return null;
+    }
+    public Smartphone getSmartphone(String modelo){
+        for(Smartphone n: smartphones){
+            if(n.getModelo().equals(modelo)){
+                return n;
+            }
+        }
+        return null;
+    }
+    
+    
+    
     public ArrayList<Notebook> getNotebooks() {
         return notebooks;
     }
@@ -207,7 +242,6 @@ public class ProductController {
             Tv tv = new Tv(modelo,tamaño,resolucion,uso);
             this.tvs.add(tv); 
         }
-        System.out.println(this.notebooks.get(0).getTamanio());
     }
     
 }

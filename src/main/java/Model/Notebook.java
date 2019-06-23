@@ -73,6 +73,18 @@ public class Notebook {
     public void setUso(String uso) {
         this.uso = uso;
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\tModelo: " + this.modelo +"\n");
+        sb.append("\t\t■ Procesador: " + this.procesador +"\n");
+        sb.append("\t\t■ Tamaño: " + this.tamanio +"\n");
+        sb.append("\t\t■ RAM: " + this.ram +"\n");
+        sb.append("\t\t■ Disco: " + this.disco +"\n");
+        sb.append("\t\t■ Uso recomendado: " + this.uso +"\n");
+        
+        return sb.toString();
+    }
     
     
 }
