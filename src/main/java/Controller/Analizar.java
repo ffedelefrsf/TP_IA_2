@@ -9,8 +9,6 @@ import Memorias.Produccion;
 import Memorias.Regla;
 import Memorias.Regla.Tipo;
 import Memorias.Trabajo;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -159,11 +157,15 @@ public class Analizar {
             for (Regla reglaEspecifica : reglasEspecificas){
                 for (String componente : reglaEspecifica.getConsecuentes()){
                     if (reglaEspecifica.getTipo()==Tipo.AGREGAR){
-                        System.out.println("AGREGADO POR ESPECIFICIDAD: " + componente);
-                        trabajo.addComponente(componente);
+                        if (!trabajo.getComponentes().contains(componente)){
+                            System.out.println("AGREGADO POR ESPECIFICIDAD: " + componente);
+                            trabajo.addComponente(componente);
+                        }
                     }else{
-                        System.out.println("BORRADO POR ESPECIFICIDAD: " + componente);
-                        trabajo.removeComponente(componente);
+                        if (trabajo.getComponentes().contains(componente)){
+                            System.out.println("BORRADO POR ESPECIFICIDAD: " + componente);
+                            trabajo.removeComponente(componente);
+                        }
                     }
                 }
             }
@@ -172,11 +174,15 @@ public class Analizar {
                 for (Regla reglaPorNovedad : reglasNovedosas){
                     for (String componente : reglaPorNovedad.getConsecuentes()){
                         if (reglaPorNovedad.getTipo()==Tipo.AGREGAR){
-                            System.out.println("AGREGADO POR NOVEDAD: " + componente);
-                            trabajo.addComponente(componente);
+                            if (!trabajo.getComponentes().contains(componente)){
+                                System.out.println("AGREGADO POR NOVEDAD: " + componente);
+                                trabajo.addComponente(componente);
+                            }
                         }else{
-                            System.out.println("BORRADO POR NOVEDAD: " + componente);
-                            trabajo.removeComponente(componente);
+                            if (trabajo.getComponentes().contains(componente)){
+                                System.out.println("BORRADO POR NOVEDAD: " + componente);
+                                trabajo.removeComponente(componente);
+                            }
                         }
                     }
                 }
@@ -205,11 +211,15 @@ public class Analizar {
         for (Regla reglaEspecifica : reglasEspecificas){
             for (String componente : reglaEspecifica.getConsecuentes()){
                 if (reglaEspecifica.getTipo()==Tipo.AGREGAR){
-                    System.out.println("AGREGADO POR ESPECIFICIDAD: " + componente);
-                    trabajo.addComponente(componente);
+                    if (!trabajo.getComponentes().contains(componente)){
+                        System.out.println("AGREGADO POR ESPECIFICIDAD: " + componente);
+                        trabajo.addComponente(componente);
+                    }
                 }else{
-                    System.out.println("BORRADO POR ESPECIFICIDAD: " + componente);
-                    trabajo.removeComponente(componente);
+                    if (trabajo.getComponentes().contains(componente)){
+                        System.out.println("BORRADO POR ESPECIFICIDAD: " + componente);
+                        trabajo.removeComponente(componente);
+                    }
                 }
             }
             reglasActivas.remove(reglaEspecifica);

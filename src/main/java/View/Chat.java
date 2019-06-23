@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.AttributeSet;
@@ -117,23 +119,68 @@ public class Chat extends javax.swing.JFrame {
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!textField.getText().isEmpty()){
             addText("Usuario dice:\n"+textField.getText()+"\n\n", Color.BLUE);
-            new TokenProcessing(textField.getText());
+            TokenProcessing tp = new TokenProcessing(textField.getText());
             textField.setText(null);
+            WordController wc= new WordController();
+            
+            List<String> inputStringAux= tp.tokenize();
+            List<String> inputString= new ArrayList<>();
+                    
+            for(String s: inputStringAux){
+                try {
+                    String w = wc.getKey(s);
+                    if(w.isEmpty()){
+                        inputString.add(s);
+                    }
+                    else{
+                        inputString.add(w);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+            Analizar analyze = new Analizar(inputString);
             boolean flag = false;
 //            for (String componente : Trabajo.getInstance().getComponentes()){
 //                    if (componente.equals("Empleado") && componente.equals("Cliente")){
 //                        flag = true;
 //                    }
 //            }
+            List<String> componentes = Trabajo.getInstance().getComponentes();
             if (Trabajo.getInstance().getComponentes().contains("noempleado") && Trabajo.getInstance().getComponentes().contains("nocliente")){
-                flag = true;
+                addText("CadeAgent dice:\nNo comprendo. Eres un cliente o un empleado?\n\n", Color.RED);
+            }else if (Trabajo.getInstance().getComponentes().contains("notebook") ){
+                addText("CadeAgent dice:\n¿Con qué objeto lo desea? ¿Alguna característica especial?\n\n", Color.RED);
+            }
+            if (!componentes.contains("noproducto") && componentes.contains("nouso")){
+                for (String word: componentes){
+                    switch (word){
+                        case "notebook":
+                            addText("CadeAgent dice:\n¿Para qué la va a utilizar?\n\n", Color.RED);
+                            break;
+                        case "smart tv":
+                            addText("CadeAgent dice:\n¿Para qué lo va a utilizar?\n\n", Color.RED);
+                            break;
+                        case "smartphone":
+                            addText("CadeAgent dice:\n¿Para qué lo va a utilizar?\n\n", Color.RED);
+                            break;
+                        case "tablet":
+                            addText("CadeAgent dice:\n¿Para qué la va a utilizar?\n\n", Color.RED);
+                            break;
+                    }
+                }
+            }
+            else{
+                if(!componentes.contains("característica")){
+                    addText("CadeAgent dice:\n¿Alguna característica especial?\n\n", Color.RED);
+                }
+                else{
+                   
+                }
             }
             
-            if (flag){
-                addText("CadeAgent dice:\nEres un cliente o un empleado?\n\n", Color.RED);
-            }else{
-                addText("CadeAgent dice:\nQué es lo que desea?\n\n", Color.RED);
-            }
             System.out.println("-----------------------------------------------------------");
             System.out.println("MEMORIA DE TRABAJO");
             System.out.println("-----------------------------------------------------------");

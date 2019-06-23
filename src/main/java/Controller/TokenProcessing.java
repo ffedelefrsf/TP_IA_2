@@ -27,7 +27,7 @@ public class TokenProcessing {
         this.tokenize();
     }
     
-    public void tokenize(){
+    public List<String> tokenize(){
         StringTokenizer st = new StringTokenizer(inputStr);
         while (st.hasMoreElements()){
             String token = characterReplacement(st.nextToken().toLowerCase());
@@ -35,7 +35,7 @@ public class TokenProcessing {
                 this.inputStrings.add(token);
             } 
         }
-        Analizar analyze = new Analizar(inputStrings);
+        return this.inputStrings;
     }
     public String characterReplacement(String input){
         String replaced = input.replaceAll("ñ", "ni")

@@ -18,7 +18,7 @@ public class Trabajo {
     private List<String> componentes;
     
     private Trabajo() {
-        componentes = new ArrayList(Arrays.asList("noempleado", "nocliente"));
+        componentes = new ArrayList(Arrays.asList("noempleado", "nocliente", "noproducto", "nouso"));
     }
     
     public static Trabajo getInstance() {

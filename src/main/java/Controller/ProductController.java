@@ -22,6 +22,38 @@ public class ProductController {
     ArrayList<Tv> tvs;
     ArrayList<Smartphone> smartphones;
     ArrayList<Tablet> tablets;
+
+    public ArrayList<Notebook> getNotebooks() {
+        return notebooks;
+    }
+
+    public void setNotebooks(ArrayList<Notebook> notebooks) {
+        this.notebooks = notebooks;
+    }
+
+    public ArrayList<Tv> getTvs() {
+        return tvs;
+    }
+
+    public void setTvs(ArrayList<Tv> tvs) {
+        this.tvs = tvs;
+    }
+
+    public ArrayList<Smartphone> getSmartphones() {
+        return smartphones;
+    }
+
+    public void setSmartphones(ArrayList<Smartphone> smartphones) {
+        this.smartphones = smartphones;
+    }
+
+    public ArrayList<Tablet> getTablets() {
+        return tablets;
+    }
+
+    public void setTablets(ArrayList<Tablet> tablets) {
+        this.tablets = tablets;
+    }
     
     public ProductController(){
         this.notebooks= new ArrayList<>();
