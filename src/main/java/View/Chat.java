@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -37,15 +38,16 @@ public class Chat extends javax.swing.JFrame {
      */
     private boolean flagUser = false, flagUso = false, flagProducto = false, flagEmpleado = false;
     private final ProductController pc= new ProductController();
-    private final Color COLOR_CADE = Color.RED;
-    private final Color COLOR_USER = Color.BLUE;
+    private final Color COLOR_CADE = new Color(255,102,0);
+    private final Color COLOR_USER = new Color(153,0,0);
     
     public Chat() {
         initComponents();
-        addText("Se ha iniciado el chat con Cade Agent\n\n---------------------------------------------------------------------------------------------------------------------------\n\n", Color.BLACK);
+        addText("Se ha iniciado el chat con CadeBot\n\n---------------------------------------------------------------------------------------------------------------------------\n\n", Color.BLACK);
 //        chatPanel.setPreferredSize(new Dimension(1000, 1000));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("images.png")).getImage());
     }
 
     /**
@@ -152,44 +154,63 @@ public class Chat extends javax.swing.JFrame {
             
             Analizar analyze = new Analizar(inputString);
             
-//            for (String componente : Trabajo.getInstance().getComponentes()){
-//                    if (componente.equals("Empleado") && componente.equals("Cliente")){
-//                        flag = true;
-//                    }
-//            }
             List<String> componentes = Trabajo.getInstance().getComponentes();
 
             if (componentes.contains("noempleado") && componentes.contains("nocliente")){
                 if (flagUser)
-                    addText("CadeAgent dice:\nNo comprendo. Eres un cliente o un empleado?\n\n", COLOR_CADE);
-                else
-                    addText("CadeAgent dice:\nEres un cliente o un empleado?\n\n", COLOR_CADE);
+                    addText("CadeBot dice:\nNo comprendo. Eres un cliente o un empleado?\n\n", COLOR_CADE);
+                else{
+                    String output = new String();
+                    boolean flagSaludo = false;
+                    if (componentes.contains("saludo")){
+                        flagSaludo= true;
+                        int x = 0 + (int)(Math.random() * ((2 - 0) + 1));
+                        switch(x){
+                            case 0:
+                                output=output.concat("CadeAgent dice:\nBuenas, ¿Cómo estás hoy?\n");
+                                break;
+                            case 1:
+                                output=output.concat("CadeAgent dice:\nHola, ¿Qué tal?\n");
+                                break;
+                            case 2:
+                                output=output.concat("CadeAgent dice:\nMuy buenas,\n");
+                                break;
+                        }
+                    }
+                    if (flagSaludo){
+                        output = output.concat("Eres un cliente o un empleado?\n\n");
+                    }
+                    else {
+                        output = output.concat("CadeAgent dice:\nHola, ¿Eres un cliente o un empleado?\n\n");
+                    }
+                    addText(output, COLOR_CADE);
+                }
                 flagUser = true;
             }else if (!componentes.contains("noproducto") && componentes.contains("nouso")){
                 if (flagUso){
                     if(componentes.contains("notebook"))
-                                addText("CadeAgent dice:\nLo siento, no comprendo el uso que le dará. ¿La usará para jugar o para trabajar?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\nLo siento, no comprendo el uso que le dará. ¿La usará para jugar o para trabajar?\n\n", COLOR_CADE);
                     if(componentes.contains("smart tv"))
-                                addText("CadeAgent dice:\nLo siento, no comprendo el uso que le dará. ¿Lo dará uso normal o pretende visión de calidad?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\nLo siento, no comprendo el uso que le dará. ¿Lo dará uso normal o pretende visión de calidad?\n\n", COLOR_CADE);
                     if(componentes.contains("smartphone"))
-                                addText("CadeAgent dice:\nLo siento, no comprendo el uso que le dará. ¿Le interesa la fotografía o uso regular?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\nLo siento, no comprendo el uso que le dará. ¿Le interesa la fotografía o uso regular?\n\n", COLOR_CADE);
                     if(componentes.contains("tablet"))
-                                addText("CadeAgent dice:\nLo siento, no comprendo el uso que le dará. ¿La usará para jugar o para trabajar? ¿Quiere algo económico o que tenga buena cámara?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\nLo siento, no comprendo el uso que le dará. ¿La usará para jugar o para trabajar? ¿Quiere algo económico o que tenga buena cámara?\n\n", COLOR_CADE);
                 }else{
                     if(componentes.contains("notebook"))
-                                addText("CadeAgent dice:\n¿Para qué la va a utilizar?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\n¿Para qué la va a utilizar?\n\n", COLOR_CADE);
                     if(componentes.contains("smart tv"))
-                                addText("CadeAgent dice:\n¿Para qué lo va a utilizar?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\n¿Para qué lo va a utilizar?\n\n", COLOR_CADE);
                     if(componentes.contains("smartphone"))
-                                addText("CadeAgent dice:\n¿Para qué lo va a utilizar?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\n¿Para qué lo va a utilizar?\n\n", COLOR_CADE);
                     if(componentes.contains("tablet"))
-                                addText("CadeAgent dice:\n¿Para qué la va a utilizar?\n\n", COLOR_CADE);
+                                addText("CadeBot dice:\n¿Para qué la va a utilizar?\n\n", COLOR_CADE);
                 }
                 flagUso = true;
             }else if (componentes.contains("producto") && !componentes.contains("nouso")){
-//                boolean disponibilidad = false;
                 String productos = "";
                 for (String word: componentes){
+                    System.out.println(word);
                     if (word.equals("HP ELITE A9") || word.equals("DELL INSPIRON 3585") || word.equals("LENOVO V330") || word.equals("HP OMEN 35000") || 
                             word.equals("ASUS VIVOBOOK E406") || word.equals("ASUS FX504") || word.equals("DELL ALIENWARE 17") || word.equals("ACER ASPIRE 3") || 
                             word.equals("ACER PREDATOR HELIOS 300") || word.equals("LG 43LK5700") || word.equals("LG 32LJ600B") || word.equals("SAMSUNG UN49K5500") || 
@@ -199,14 +220,13 @@ public class Chat extends javax.swing.JFrame {
                             word.equals("ONEPLUS 7 PRO") || word.equals("HUAWEI MATE 20 PRO") || word.equals("HUAWEI P20 LITE") || word.equals("MOTO G7 PLUS") || 
                             word.equals("MOTO E5 PLUS") || word.equals("SAMSUNG SM-T560") || word.equals("SAMSUNG SM-T580") || word.equals("GADNIC TAB038BK") || 
                             word.equals("GADNIC FENIX PHONE") || word.equals("LENOVO TB3-710F") || word.equals("LENOVO YOGA TAB 3") || word.equals("IPAD PRO") || 
-                            word.equals("IPAD 2") || word.equals("HUAWEI BG2-W09") || word.equals("HUAWEI T3 10")){
-//                        disponibilidad = true;
+                            word.equals("IPAD 2") || word.equals("HUAWEI BG2-W09") || word.equals("HUAWEI T3 10") || word.equals("LENOVO A12")){
                         productos = productos.concat("\t■ "+word+"\n");
                     }
                 }
                 String salida;
 //                if (disponibilidad){
-                    salida = "CadeAgent dice:\nLos productos disponibles son:\n"+productos+"\n";
+                    salida = "CadeBot dice:\nLos productos disponibles son:\n"+productos+"\n";
 //                }else{
 //                    salida = "Lo siento, no conozco ese producto.";
 //                }
@@ -216,7 +236,7 @@ public class Chat extends javax.swing.JFrame {
                     addText("¿Qué otro producto le interesa?\n\n", COLOR_CADE);
                 }else{
                     Trabajo.getInstance().reset("empleado");
-                    addText("CadeAgent dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                    addText("CadeBot dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
                     flagProducto = false;
                 }
                 flagUso = false;
@@ -224,27 +244,16 @@ public class Chat extends javax.swing.JFrame {
             else{
                 if (componentes.contains("empleado") && componentes.contains("noproducto") && componentes.contains("nocaracteristica") && !componentes.contains("disponibilidad")){
                     if (flagEmpleado){
-                        addText("CadeAgent dice:\nLo siento, no cuento con esa opción. Puede elegir entre una característica o disponibilidad de productos.\n"
+                        addText("CadeBot dice:\nLo siento, no cuento con esa opción. Puede elegir entre una característica o disponibilidad de productos.\n"
                             + "¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
                     }else{
-                        addText("CadeAgent dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                        addText("CadeBot dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
                         flagEmpleado = true;
                     }
                 }else{
                     if (componentes.contains("empleado") && componentes.contains("caracteristica") && componentes.contains("consulta")){
                         String productos = "";
                         for (String word: componentes){
-//                            if (word.equals("HP ELITE A9") || word.equals("DELL INSPIRON 3585") || word.equals("LENOVO V330") || word.equals("HP OMEN 35000") || 
-//                                    word.equals("ASUS VIVOBOOK E406") || word.equals("ASUS FX504") || word.equals("DELL ALIENWARE 17") || word.equals("ACER ASPIRE 3") || 
-//                                    word.equals("ACER PREDATOR HELIOS 300") || word.equals("LG 43LK5700") || word.equals("LG 32LJ600B") || word.equals("SAMSUNG UN49K5500") || 
-//                                    word.equals("SAMSUNG J4300") || word.equals("NOBLEX EA43X5100") || word.equals("NOBLEX DI49X6500") || word.equals("TCL L32S6500") || 
-//                                    word.equals("TCL L49S62") || word.equals("PHILIPS 55OLED873") || word.equals("PHILIPS 32PHG5102") || word.equals("XIAOMI MI 8 PRO") || 
-//                                    word.equals("XIAOMI REDMI NOTE 7") || word.equals("SAMSUNG GALAXY NOTE 9") || word.equals("SAMSUNG GALAXY A50") || word.equals("ONEPLUS 6T") || 
-//                                    word.equals("ONEPLUS 7 PRO") || word.equals("HUAWEI MATE 20 PRO") || word.equals("HUAWEI P20 LITE") || word.equals("MOTO G7 PLUS") || 
-//                                    word.equals("MOTO E5 PLUS") || word.equals("SAMSUNG SM-T560") || word.equals("SAMSUNG SM-T580") || word.equals("GADNIC TAB038BK") || 
-//                                    word.equals("GADNIC FENIX PHONE") || word.equals("LENOVO TB3-710F") || word.equals("LENOVO YOGA TAB 3") || word.equals("IPAD PRO") || 
-//                                    word.equals("IPAD 2") || word.equals("HUAWEI BG2-W09") || word.equals("HUAWEI T3 10")){
-        //                        disponibilidad = true;
                                 if(pc.getNotebook(word)!=null){
                                     
                                     productos = productos.concat(pc.getNotebook(word).toString());
@@ -265,23 +274,16 @@ public class Chat extends javax.swing.JFrame {
                                         }
                                     }
                                 }
-//                                productos = productos.concat("\t■ "+word+"\n");
-//                            }
-                            
                         }
                         String salida;
-        //                if (disponibilidad){
-                            salida = "CadeAgent dice:\nLas características son:\n"+productos+"\n";
-        //                }else{
-        //                    salida = "Lo siento, no conozco ese producto.";
-        //                }
+                        salida = "CadeBot dice:\nLas características son:\n"+productos+"\n";
                         addText(salida, COLOR_CADE);
                         if (componentes.contains("cliente")){
                             Trabajo.getInstance().reset("cliente");
                             addText("¿Qué otro producto le interesa?\n\n", COLOR_CADE);
                         }else{
                             Trabajo.getInstance().reset("empleado");
-                            addText("CadeAgent dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
+                            addText("CadeBot dice:\n¿Desea información sobre un producto en especial o disponibilidad de productos?\n\n", COLOR_CADE);
                         }
                         flagUso = false;
                         flagProducto = false;
@@ -289,7 +291,7 @@ public class Chat extends javax.swing.JFrame {
                         if (!componentes.contains("producto")){
                             if (componentes.contains("caracteristica")){
                                 if (flagProducto){
-                                    String output = "CadeAgent dice:\nLo siento, no conozco ese producto. Los productos disponibles son los siguientes:\n";
+                                    String output = "CadeBot dice:\nLo siento, no conozco ese producto. Los productos disponibles son los siguientes:\n";
                                     output = output.concat("\tNotebooks:\n");
                                     for (Notebook note : pc.getNotebooks()){
                                         output = output.concat("\t\t■ "+note.getModelo()+"\n");
@@ -309,15 +311,15 @@ public class Chat extends javax.swing.JFrame {
                                     output = output.concat("¿Qué producto le interesa?\n\n");
                                     addText(output, COLOR_CADE);
                                 }else{
-                                    addText("CadeAgent dice:\n¿Las características de qué producto desea saber?\n\n", COLOR_CADE);
+                                    addText("CadeBot dice:\n¿Las características de qué producto desea saber?\n\n", COLOR_CADE);
                                 }
                                 flagProducto = true;
                             }else{
                                 if (flagProducto)
-                                    addText("CadeAgent dice:\nLo siento, no conozco ese producto. Puede elegir entre notebook, tablet, smart tv o smartphone.\n"
+                                    addText("CadeBot dice:\nLo siento, no conozco ese producto. Puede elegir entre notebook, tablet, smart tv o smartphone.\n"
                                             + "¿Qué producto le interesa?\n\n", COLOR_CADE);
                                 else{
-                                    addText("CadeAgent dice:\n¿Qué producto le interesa?\n\n", COLOR_CADE);
+                                    addText("CadeBot dice:\n¿Qué producto le interesa?\n\n", COLOR_CADE);
                                 }
                                 flagProducto = true;
                             }
@@ -325,14 +327,6 @@ public class Chat extends javax.swing.JFrame {
                     }
                 }
             }
-//            else{
-//                if(!componentes.contains("característica")){
-//                    addText("CadeAgent dice:\n¿Alguna característica especial?\n\n", COLOR_CADE);
-//                }
-//                else{
-//                   addText("CadeAgent dice:\nNo comprendo.\n\n", COLOR_CADE);
-//                }
-//            }
             
             System.out.println("-----------------------------------------------------------");
             System.out.println("MEMORIA DE TRABAJO");
@@ -341,7 +335,6 @@ public class Chat extends javax.swing.JFrame {
                 System.out.println(componente);
             }
             System.out.println("-----------------------------------------------------------");
-//            addText("CadeAgent dice:\nno te entiendo\n\n", COLOR_CADE);
         }
     }//GEN-LAST:event_buttonActionPerformed
 

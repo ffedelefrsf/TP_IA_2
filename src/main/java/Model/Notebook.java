@@ -79,7 +79,7 @@ public class Notebook {
         sb.append("\tModelo: " + this.modelo +"\n");
         sb.append("\t\t■ Procesador: " + this.procesador +"\n");
         sb.append("\t\t■ Tamaño: " + this.tamanio +"\n");
-        sb.append("\t\t■ RAM: " + this.ram +"\n");
+        sb.append("\t\t■ RAM: " + this.ram +" GB\n");
         sb.append("\t\t■ Disco: " + this.disco +"\n");
         sb.append("\t\t■ Uso recomendado: " + this.uso +"\n");
         

@@ -7,3 +7,5 @@ economico;barato*economico*baratos*economicos*whatsapp*mensajes*mensaje*llamar*l
 smart tv;tv*tele*televisor*led*lcd
 tablet;tablet*tableta*ipad
 notebook;computadora*compu*laptop*netbook*ordenador*pc
+caracteristicas;caracteristica*recursos*recurso*detalle*detalles*especificaciones*especificacion
+disponibilidad;disponible*existe*disponibles

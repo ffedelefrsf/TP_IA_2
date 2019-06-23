@@ -23,19 +23,24 @@ public class Produccion {
     private Produccion() {
         // Initialize REGLA ( ANTECENDETES , CONSECUENTES )
         reglas = new ArrayList();
+        
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("hola","noempleado", "nocliente")), new ArrayList<>(Arrays.asList("saludo")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("que","tal","noempleado", "nocliente")), new ArrayList<>(Arrays.asList("saludo")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("buenas","noempleado", "nocliente")), new ArrayList<>(Arrays.asList("saludo")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("buen","noempleado", "nocliente")), new ArrayList<>(Arrays.asList("saludo")), Tipo.AGREGAR));
+        
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("noempleado", "saludo")), Tipo.BORRAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("empleado", "usuario")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("nocliente", "saludo")), Tipo.BORRAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("cliente", "usuario")), Tipo.AGREGAR));
-  
         
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "notebook", "noproducto")), new ArrayList<>(Arrays.asList("notebook", "producto")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smartphone", "noproducto")), new ArrayList<>(Arrays.asList("smartphone", "producto")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "tablet", "noproducto")), new ArrayList<>(Arrays.asList("tablet", "producto")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smart tv", "noproducto")), new ArrayList<>(Arrays.asList("smart tv", "producto")), Tipo.AGREGAR));
         
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "producto", "especial")), new ArrayList<>(Arrays.asList("caracteristica")), Tipo.AGREGAR));
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "producto", "especial")), new ArrayList<>(Arrays.asList("nocaracteristica")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "caracteristicas")), new ArrayList<>(Arrays.asList("caracteristica")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "caracteristicas")), new ArrayList<>(Arrays.asList("nocaracteristica")), Tipo.BORRAR));
         
 //        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("producto")), Tipo.AGREGAR));
 //        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
@@ -72,7 +77,7 @@ public class Produccion {
         
         // NOTEBOOKs
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("notebook", "trabajar", "uso")), new ArrayList<>(Arrays.asList("HP ELITE A9", "DELL INSPIRON 3585", "LENOVO V330", "ASUS VIVOBOOK E406", "ACER ASPIRE 3")), Tipo.AGREGAR));
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("notebook", "jugar", "uso")), new ArrayList<>(Arrays.asList("HP OMEN 35000", "ASUS FX504", "DELL ALIENWARE 17", "ACER PREDATOR HELIOS 300")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("notebook", "jugar", "uso")), new ArrayList<>(Arrays.asList("HP OMEN 35000", "ASUS FX504", "DELL ALIENWARE 17", "ACER PREDATOR HELIOS 300", "LENOVO A12")), Tipo.AGREGAR));
         
         // SMART TVs
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("smart tv", "pelicula", "uso")), new ArrayList<>(Arrays.asList("LG 43LK5700", "SAMSUNG UN49K5500", "NOBLEX DI49X6500", "TCL L49S62", "PHILIPS 55OLED873")), Tipo.AGREGAR));
@@ -88,6 +93,8 @@ public class Produccion {
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("smartphone", "economico", "uso")), new ArrayList<>(Arrays.asList("XIAOMI REDMI NOTE 7", "SAMSUNG GALAXY A50", "HUAWEI P20 LITE", "MOTO E5 PLUS")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("smartphone", "camara", "uso")), new ArrayList<>(Arrays.asList("XIAOMI MI 8 PRO", "SAMSUNG GALAXY NOTE 9", "ONEPLUS 6T", "ONEPLUS 7 PRO", "HUAWEI MATE 20 PRO", "MOTO G7 PLUS")), Tipo.AGREGAR));
         
+        
+        
         // INFORMACIÓN AL VENDEDOR
         
         // NOTEBOOKs
@@ -101,6 +108,7 @@ public class Produccion {
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "dell", "alienware", "17")), new ArrayList<>(Arrays.asList("DELL ALIENWARE 17", "consulta")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "acer" ,"aspire", "3")), new ArrayList<>(Arrays.asList("ACER ASPIRE 3", "consulta")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "acer", "predator", "helios", "300")), new ArrayList<>(Arrays.asList("ACER PREDATOR HELIOS 300", "consulta")), Tipo.AGREGAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "lenovo", "a12")), new ArrayList<>(Arrays.asList("LENOVO A12", "consulta")), Tipo.AGREGAR));
         
 //        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "hp", "elite", "a9")), new ArrayList<>(Arrays.asList("intel i7", "17.3", "16gb", "1000hdd", "trabajar")), Tipo.AGREGAR));
 //        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "caracteristica", "dell", "inspiron", "3585")), new ArrayList<>(Arrays.asList("amd a9", "15.6", "8gb", "8gb", "500hdd", "trabajar")), Tipo.AGREGAR));
