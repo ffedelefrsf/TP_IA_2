@@ -43,7 +43,7 @@ public class Analizar {
             reglasActivas.clear();
             fillReglasActivas();
             for (Regla regla : reglasActivas){
-                System.out.println("REGLA CANDIDATA: " + regla.getId());
+                System.out.println("REGLA CANDIDATA: "+regla.getId()+"\nAntecedente: " + regla.getAntecedentes().toString() + "\nConsecuente: "+regla.getConsecuentes().toString());
             }
             System.out.println("-----------------------------------------------------------\n");
             clon.addAll(reglasActivas);
