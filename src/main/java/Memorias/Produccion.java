@@ -23,9 +23,9 @@ public class Produccion {
     private Produccion() {
         // Initialize REGLA ( ANTECENDETES , CONSECUENTES )
         reglas = new ArrayList();
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("noempleado")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("noempleado", "saludo")), Tipo.BORRAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "nocliente")), new ArrayList<>(Arrays.asList("empleado", "usuario")), Tipo.AGREGAR));
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("nocliente")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("nocliente", "saludo")), Tipo.BORRAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("cliente", "noempleado")), new ArrayList<>(Arrays.asList("cliente", "usuario")), Tipo.AGREGAR));
   
         
@@ -37,12 +37,15 @@ public class Produccion {
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "producto", "especial")), new ArrayList<>(Arrays.asList("caracteristica")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "producto", "especial")), new ArrayList<>(Arrays.asList("nocaracteristica")), Tipo.BORRAR));
         
-        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
+//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("producto")), Tipo.AGREGAR));
+//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
         
-//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "notebook", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
-//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smartphone", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
-//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "tablet", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
-//        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smart tv", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("empleado", "noproducto", "nocaracteristica", "disponibilidad")), new ArrayList<>(Arrays.asList("disponibilidad")), Tipo.AGREGAR));
+
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "notebook", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smartphone", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "tablet", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
+        reglas.add(new Regla(new ArrayList<>(Arrays.asList("usuario", "smart tv", "noproducto", "nocaracteristica")), new ArrayList<>(Arrays.asList("noproducto")), Tipo.BORRAR));
         
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("notebook", "trabajar", "nouso")), new ArrayList<>(Arrays.asList("trabajar", "uso")), Tipo.AGREGAR));
         reglas.add(new Regla(new ArrayList<>(Arrays.asList("notebook", "jugar", "nouso")), new ArrayList<>(Arrays.asList("jugar", "uso")), Tipo.AGREGAR));

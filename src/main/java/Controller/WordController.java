@@ -13,7 +13,6 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Iterator;
-import static Controller.Comparer.match;
 import java.util.Collection;
 
 /**
